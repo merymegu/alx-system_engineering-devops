@@ -1,13 +1,3 @@
 #!/usr/bin/env bash
-# ping 5 times
-
-# Get the list of network interfaces
-interfaces=$(ifconfig -a | grep 'inet ' | awk '{print $2}')
-
-# Loop through each interface and extract the IPv4 addresses
-for ip in $interfaces; do
-  # Check if the IP is in the format of an IPv4 address
-  if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    echo "$ip"
-  fi
-done
+# displays all active IPv4 IPs on the machine it’s executed o
+ifconfig | grep -Eo "inet (addr:)?([0-9]*\.){3}[0-9]*" | awk '{print $2}'
